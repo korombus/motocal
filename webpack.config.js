@@ -52,26 +52,36 @@ const plugins = [
             TWITTER_ID: JSON.stringify(process.env.TWITTER_ID || ""),
         },
     }),
-    new CopyWebpackPlugin([
-        {
-            from: path.join(__dirname, "/*Data.json"),
-            to: path.join(__dirname, "/dist/"),
-        },
-        {
-            from: path.join(__dirname, "/imgs/"),
-            to: path.join(__dirname, "/dist/imgs/"),
-            ignore: ["*.txt"],
-        },
-        {
-            from: path.join(__dirname, "/otherImages/"),
-            to: path.join(__dirname, "/dist/otherImages/"),
-        },
-        {
-            from: path.join(__dirname, "/charaimgs/"),
-            to: path.join(__dirname, "/dist/charaimgs/"),
-            ignore: ["*.txt"],
-        },
-    ]),
+    new CopyWebpackPlugin({
+        patterns: [
+            {
+                from: path.join(__dirname, "/armData.json"),
+                to: path.join(__dirname, "/dist/"),
+            },
+            {
+                from: path.join(__dirname, "/charaData.json"),
+                to: path.join(__dirname, "/dist/"),
+            },
+            {
+                from: path.join(__dirname, "/imgs/"),
+                to: path.join(__dirname, "/dist/imgs/"),
+                globOptions: {
+                    ignore: ["*.txt"],
+                },
+            },
+            {
+                from: path.join(__dirname, "/otherImages/"),
+                to: path.join(__dirname, "/dist/otherImages/"),
+            },
+            {
+                from: path.join(__dirname, "/charaimgs/"),
+                to: path.join(__dirname, "/dist/charaimgs/"),
+                globOptions: {
+                    ignore: ["*.txt"],
+                }
+            },
+        ]
+    }),
     // new webpack.optimize.UglifyJsPlugin({
     //   compress: {
     //     screw_ie8: true, // React doesn't support IE8
